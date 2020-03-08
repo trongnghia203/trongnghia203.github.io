@@ -1,15 +1,5 @@
 # trongnghia203.github.io
 
-Heading
-=======
-
-SubHeading
-----------
-
-  * list item 1
-  * list item 2
-
-  This is a hyperlink to [Google](http://google.com).
-
-  Images are like hyperlinks, but with an exclamation mark in front of them:
-  ![](http://placekitten.com/g/250/250)
+The images below float right to this text.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+![](./images/trongnghia203-lntn203.jpg)
