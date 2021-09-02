@@ -1,0 +1,43 @@
+#!/bin/bash
+
+function install_ohmyzsh () {
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
+function install_ohmybash () {
+
+    if [[ ! -d ~/.oh-my-bash ]]; then
+    
+        # backup gdc::bashrc
+        if [[ -d /etc/gdc && ! -f ~/.gdc_bashrc ]] ; then
+            cp ~/.bashrc ~/.gdc_bashrc
+        fi
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+    
+        # restore gdc::bashrc
+        if [[ -f ~/.gdc_bashrc ]] ; then
+            echo -e "#gdc::bashrc configuraiton\n" >> ~/.bashrc
+            cat ~/.gdc_bashrc >> ~/.bashrc
+        fi
+
+    fi
+}
+
+function ansible_checkout () {
+
+    cd || return 1
+
+    [[ ! -d /home/nghia.le/ansible-local ]] && git clone git@github.com:trongnghia203/ansible.git ansible-local
+
+    cd /home/nghia.le/ansible-local || return 1
+    git fetch origin && git reset --hard origin/hds
+
+    # Method 1: using Environment variables
+    export ANSIBLE_INVENTORY=inventories/na1-dev
+    export DEFAULT_PRIVATE_KEY_FILE=~/.ssh/id_rsa
+
+    # Method 2: using a custome declerative ansible-config file
+    # if [[ -f /home/nghia.le/ansible-local/ansible-local.cfg ]]; then
+    #   export ANSIBLE_CONFIG=/home/nghia.le/ansible-local/ansible-local.cfg
+    # fi
+}

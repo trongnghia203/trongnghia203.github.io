@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo -e "Update the ~/.extended_bashrc\n"
+# remove and catch the up2date ~/.extended_bashrc
+[[ -f ~/.extended_bashrc ]] && rm -f ~/.extended_bashrc
+
+curl -s wiki.lntn203.com/setup/extended_bashrc -o ~/.extended_bashrc
+
+
+## Check if existing extended_bashrc configuration in ~/.bashrc
+check_extended_bashrc=$(grep extended_bashrc ~/.bashrc -c)
+if [[ "$check_extended_bashrc" -eq 0 ]] ; then
+
+    # add source ~/.extended_bashrc to ~/.bashrc
+    cat >> ~/.bashrc << 'endmsg'
+if [[ -f ~/.extended_bashrc ]] ; then
+    . ~/.extended_bashrc
+fi
+endmsg
+
+    echo -e "Appended extened_bashrd into the ~/.bashrc\n"
+fi
